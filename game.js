@@ -45,7 +45,6 @@ function handleClick() {
             blueAudio.play();
             break;
     }
-
     checkingSequences();
 }
 
@@ -59,6 +58,7 @@ function buttonAnimation(key) {
 
 function nextSequence() {
     level++;
+    userClickedPattern = [];
     $("#level-title").text("Level " + level);
     var randomNumber = Math.floor(Math.random() * 4);
     var randomChoosenColor = buttonColors[randomNumber];
@@ -87,8 +87,9 @@ function checkingSequences() {
     for (let i = 0; i < userClickedPattern.length; i++) {
         if (gamePattern[i] == userClickedPattern[i]) {
             if (i == gamePattern.length - 1) {
-                setTimeout(nextSequence(), 1000);
-                userClickedPattern = [];
+                setTimeout(function() {
+                    nextSequence();
+                }, 700);
             }
         }
         else if (gamePattern[i] != userClickedPattern[i]) {
@@ -107,6 +108,5 @@ function gameOver() {
                 $("body").removeClass("game-over")
             }, 200);
             gamePattern = [];
-            userClickedPattern = [];
 }
 
